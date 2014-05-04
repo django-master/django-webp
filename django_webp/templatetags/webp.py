@@ -7,6 +7,6 @@ register = template.Library()
 WEBP_URL = getattr(settings, 'WEBP_URL', '/webp')
 
 
-@register.filter
+@register.simple_tag()
 def webp(value):
     return "%s/%s" % (WEBP_URL, value)
