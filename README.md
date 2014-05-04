@@ -3,6 +3,10 @@ django-webp
 
 webp middleware for django
 
+[![Build Status](https://travis-ci.org/andrefarzat/django-webp.png?branch=master)](https://travis-ci.org/andrefarzat/django-webp)
+[![Coverage Status](https://coveralls.io/repos/andrefarzat/django-webp/badge.png)](https://coveralls.io/r/andrefarzat/django-webp)
+[![Requirements Status](https://requires.io/github/andrefarzat/django-webp/requirements.png?branch=master)](https://requires.io/github/andrefarzat/django-webp/requirements/?branch=master)
+
 
 ## Installation
 
@@ -33,7 +37,6 @@ MIDDLEWARE_CLASSES = (
     'django_webp.middleware.Webp',
 )
 ```
-
 
 ### Templatetag
 
