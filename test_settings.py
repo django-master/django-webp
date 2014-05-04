@@ -3,7 +3,7 @@
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
-ROOT_URLCONF = 'styleguide.urls'
+ROOT_URLCONF = 'django_webp.urls'
 
 DATABASES = {
     'default': {
@@ -18,6 +18,5 @@ DATABASES = {
 
 
 INSTALLED_APPS = (
-    'styleguide',
-    'styleguide_mock',
+    'django_webp',
 )
