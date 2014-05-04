@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 register = template.Library()
-WEBP_URL = getattr(settings, 'WEBP_URL', '/webp')
-
 
 @register.simple_tag()
 def webp(value):
-    return "%s/%s" % (WEBP_URL, value)
+    return reverse("django_webp", args=(value, ))
