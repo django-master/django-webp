@@ -50,7 +50,7 @@ urlpatterns = patterns(
 Load the `webp` module in your template and use the `webp` templatetag to point
 to the image you want to convert.
 
-```django
+```html
 {% load webp %}
 
 {# Use webp as you would use static templatetag #}
