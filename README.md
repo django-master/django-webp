@@ -10,8 +10,12 @@ webp middleware for django
 
 ## Installation
 
+First of all, you must install the webp support. Please, check [the official guide](https://developers.google.com/speed/webp/docs/precompiled).
+
+Then, install `django-webp`
+
 ```sh
-pip install django-wep
+pip install django-webp
 ```
 
 add it to `INSTALLED_APPS` configuration
