@@ -5,11 +5,11 @@ python:
  - "3.3"
 
 install:
+ - sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms1-dev libwebp-dev
  - pip install -r requirements.txt
  - pip install coveralls
 
 script:
- - sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms1-dev libwebp-dev
  - coverage run --source=django_webp manage.py test
 
 after_success:
