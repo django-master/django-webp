@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import httpagentparser
 import imghdr
+import logging
 
 from PIL import Image
 from StringIO import StringIO
@@ -8,6 +9,7 @@ from StringIO import StringIO
 from django.http import HttpResponse, Http404
 from django.contrib.staticfiles import finders
 
+logger = logging.getLogger(__name__)
 
 VALID_BROWSERS = ['Chrome', 'Opera', 'Opera Mobile']
 
@@ -25,6 +27,7 @@ def _return_webp_image(image_path):
     try:
         image.save(data, 'WEBP')
     except KeyError:
+        logger.warn('WEBP is not installed in pillow')
         return _return_static_image(image_path)
 
     return HttpResponse(data.getvalue(), content_type="image/webp")
