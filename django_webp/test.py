@@ -78,7 +78,7 @@ class ViewIndexTest(unittest.TestCase):
 
     def test_simple_request(self):
         """ should return an image converted to webp """
-        image = open(IMAGE_WEBP_PATH).read()
+        image = _get_converted_image()
 
         for user_agent in USER_AGENTS:
             headers = { 'HTTP_USER_AGENT': user_agent }
