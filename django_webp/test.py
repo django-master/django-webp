@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import unittest
 
+from PIL import Image
+
 from django.template import Template, Context
 from django.core.urlresolvers import reverse
 from django.test.client import Client
@@ -21,6 +23,21 @@ USER_AGENTS = [
     'Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52',
 ]
 
+IMAGE_PNG_PATH = finders.find('django_webp/python.png')
+IMAGE_WEBP_PATH = finders.find('django_webp/python.webp')
+
+
+class MainTest(unittest.TestCase):
+
+    def test_pillow(self):
+        """ Checks if current pillow installation
+        has support to WEBP """
+        image = Image.open(IMAGE_PNG_PATH)
+        try:
+            image.load()
+            self.asertTrue(True)
+        except:
+            self.assertTrue(False, "There is no support for webp")
 
 
 class TemplateTagTest(unittest.TestCase):
@@ -45,13 +62,10 @@ class ViewIndexTest(unittest.TestCase):
     def setUp(self):
         self.client = Client()
         self.url = reverse('django_webp', args=('django_webp/python.png', ))
-        self.image_png_path = finders.find('django_webp/python.png')
-        self.image_webp_path = finders.find('django_webp/python.webp')
-
 
     def test_simple_request(self):
         """ shoudl return an image converted to webp """
-        image = open(self.image_webp_path).read()
+        image = open(IMAGE_WEBP_PATH).read()
 
         for user_agent in USER_AGENTS:
             headers = { 'HTTP_USER_AGENT': user_agent }
