@@ -35,7 +35,7 @@ class MainTest(unittest.TestCase):
         image = Image.open(IMAGE_PNG_PATH)
         try:
             image.load()
-            self.asertTrue(True)
+            self.assertTrue(True)
         except:
             self.assertTrue(False, "There is no support for webp")
 
