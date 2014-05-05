@@ -10,7 +10,7 @@ from django_webp.templatetags.webp import webp
 class TemplateTagTest(unittest.TestCase):
 
     def setUp(self):
-        self.expected = reverse("django_webp", args=('path/to/the/image.png', ))
+        self.expected = reverse('django_webp', args=('path/to/the/image.png', ))
 
     def render_template(self, html, context={}):
         return Template(html).render(Context(context))
