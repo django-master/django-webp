@@ -2,6 +2,7 @@
 import unittest
 
 from PIL import Image
+from StringIO import StringIO
 
 from django.template import Template, Context
 from django.core.urlresolvers import reverse
@@ -25,6 +26,18 @@ USER_AGENTS = [
 
 IMAGE_PNG_PATH = finders.find('django_webp/python.png')
 IMAGE_WEBP_PATH = finders.find('django_webp/python.webp')
+
+CONVERTED_IMAGE = None
+
+def _get_converted_image():
+    global CONVERTED_IMAGE
+
+    if CONVERTED_IMAGE is None:
+        CONVERTED_IMAGE = StringIO()
+        image = Image.open(IMAGE_PNG_PATH)
+        image.save(CONVERTED_IMAGE, 'webp')
+
+    return CONVERTED_IMAGE
 
 
 class MainTest(unittest.TestCase):
