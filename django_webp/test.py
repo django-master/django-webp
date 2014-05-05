@@ -64,7 +64,7 @@ class ViewIndexTest(unittest.TestCase):
         self.url = reverse('django_webp', args=('django_webp/python.png', ))
 
     def test_simple_request(self):
-        """ shoudl return an image converted to webp """
+        """ should return an image converted to webp """
         image = open(IMAGE_WEBP_PATH).read()
 
         for user_agent in USER_AGENTS:
