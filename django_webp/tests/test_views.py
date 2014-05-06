@@ -4,7 +4,7 @@ import unittest
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
-from .main import USER_AGENTS
+from django_webp.tests.main import USER_AGENTS
 
 
 class ViewIndexTest(unittest.TestCase):
