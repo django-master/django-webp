@@ -18,8 +18,12 @@ to the image you want to convert.
 
 {# Use webp as you would use static templatetag #}
 <img src="{% webp 'path/to/your/image.png' %}" alt="image" />
-<!-- produces:
+<!--
+If the browser has support, generates:
 <img src="/static/CACHE/webp/path/to/your/image.webp" alt="image" />
+
+else, generates:
+<img src="/static/path/to/your/image.webp" alt="image" />
 -->
 ```
 
