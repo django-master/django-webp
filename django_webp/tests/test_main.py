@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
+import os
 import unittest
 from PIL import Image
 
 from django.test.client import Client
 from django.contrib.staticfiles import finders
+from django.core.management import call_command
+from django.core.management.base import CommandError
+
+from django_webp.utils import WEBP_STATIC_ROOT
 
 
 USER_AGENTS = [
@@ -19,7 +24,6 @@ USER_AGENTS = [
 ]
 
 IMAGE_PNG_PATH = finders.find('django_webp/python.png')
-IMAGE_WEBP_PATH = finders.find('django_webp/python.webp')
 
 
 class MainTest(unittest.TestCase):
@@ -40,3 +44,9 @@ class MainTest(unittest.TestCase):
         response = client.get('/')
         
         self.assertEqual(response.status_code, 200)
+
+
+    def test_clean_webp_images_command(self):
+        call_command('collectstatic', interactive=False, verbose=False)
+        with self.assertRaises(CommandError):
+            call_command('clean_webp_images')
