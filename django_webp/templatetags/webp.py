@@ -5,6 +5,7 @@ from PIL import Image
 from StringIO import StringIO
 
 from django import template
+from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
@@ -71,7 +72,7 @@ def _get_generated_image(image_url):
 @register.simple_tag(takes_context=True)
 def webp(context, value):
     supports_webp = context.get('supports_webp', False)
-    if not supports_webp:
+    if not supports_webp or settings.DEBUG:
         return _get_static_image(value)
     else:
         return _get_generated_image(value)

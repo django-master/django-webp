@@ -4,6 +4,7 @@ import os
 import shutil
 
 from django.template import Template, Context
+from django.test.utils import override_settings
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from django_webp.templatetags.webp import webp
@@ -54,7 +55,6 @@ class TemplateTagTest(unittest.TestCase):
         """ checks the returned url from the webp function """
         context = self._get_valid_context()
         result = webp(context, 'django_webp/python.png')
-        import ipdb; ipdb.set_trace()
         self.assertEqual(self.supported_url, result)
         self._assertFile(result, 'file should have been created')
 
@@ -64,3 +64,11 @@ class TemplateTagTest(unittest.TestCase):
         rendered = self._render_template(html, context=self._get_valid_context())
         self.assertEqual(self.supported_url, rendered)
         self._assertFile(rendered, 'file should have been created')
+
+
+    @override_settings(DEBUG=True)
+    def test_debug_true(self):
+        """ if DEBUG = True, should always return the static url """
+        context = self._get_valid_context()
+        result = webp(context, 'django_webp/python.png')
+        self.assertEqual(self.unsupported_url, result)
