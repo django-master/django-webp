@@ -42,5 +42,18 @@ pip install django-webp
 add it to `INSTALLED_APPS` configuration
 
 ```python
-INSTALLED_APPS = ('django_webp', ...)
+INSTALLED_APPS = (
+    'django.contrib.staticfiles',
+    'django_webp',
+    '...',
+)
 ```
+
+and to `TEMPLATE_CONTEXT_PROCESSORS`  configuration
+
+```python
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.static",
+    "django_webp.context_processors.webp",
+    "..."
+)

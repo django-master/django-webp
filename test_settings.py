@@ -2,7 +2,6 @@
 
 ALLOWED_HOSTS = ['*']
 DEBUG = True
-WEBP_DEBUG = False
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
