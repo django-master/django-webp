@@ -27,7 +27,6 @@ class MainTest(unittest.TestCase):
         """ Checks if current pillow installation
         has support to WEBP """
         image = Image.open(IMAGE_PNG_PATH)
-        print IMAGE_PNG_PATH
         try:
             image.load()
             self.assertTrue(True)
