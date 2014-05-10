@@ -33,16 +33,3 @@ class MainTest(unittest.TestCase):
             self.assertTrue(True)
         except:
             self.assertTrue(False, "There is no support for webp")
-
-
-
-
-
-
-class MiddlewareWebpTest(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    #def process_request(self, request):
-    #def process_response(self, request, response):

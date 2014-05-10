@@ -5,6 +5,6 @@ from django.core.urlresolvers import reverse
 
 register = template.Library()
 
-@register.simple_tag()
-def webp(value):
+@register.simple_tag(takes_context=True)
+def webp(context, value):
     return reverse("django_webp", args=(value, ))
