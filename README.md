@@ -8,11 +8,14 @@ webp middleware for django
 [![Requirements Status](https://requires.io/github/andrefarzat/django-webp/requirements.png?branch=master)](https://requires.io/github/andrefarzat/django-webp/requirements/?branch=master)
 
 
+Returns a webp image instead of jpg, gif or png to browsers which have support.
+
 ## Installation
 
-First of all, you must install the webp support. Please, check [the official guide](https://developers.google.com/speed/webp/docs/precompiled).
+First of all, you must install the webp support.
+Please, check [the official guide](https://developers.google.com/speed/webp/docs/precompiled).
 
-Then, install `django-webp`
+Then, install `django-webp`.
 
 ```sh
 pip install django-webp
@@ -26,34 +29,6 @@ INSTALLED_APPS = ('django_webp', ...)
 
 ## Usage
 
-There are two possible ways: Adding the middleware or by templatetag.
-
-### Middleware
-
-Add the `django_webp.middleware.` class to `MIDDLEWARE_CLASSES` configuration.
-It is important to let it as the *last* class in the list.
-
-```python
-MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    '...',
-    'django_webp.middleware.Webp',
-)
-```
-
-### Templatetag
-
-It is necessary to set up the urls to use the templatetag.
-
-```python
-# urls.py
-
-urlpatterns = patterns(
-    url(r'^/webp', 'django_webp.views.webp', name="webp"),
-)
-```
-
 Load the `webp` module in your template and use the `webp` templatetag to point
 to the image you want to convert.
 
@@ -63,6 +38,6 @@ to the image you want to convert.
 {# Use webp as you would use static templatetag #}
 <img src="{% webp 'path/to/your/image.png' %}" alt="image" />
 <!-- produces:
-<img src="/webp/path/to/your/image.png" alt="image" />
+<img src="/static/CACHE/webp/path/to/your/image.webp" alt="image" />
 -->
 ```
