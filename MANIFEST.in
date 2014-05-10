@@ -1,0 +1,3 @@
+include *.txt
+include README.md
+recursive-include django_webp *.py *.html *.png
