@@ -23,5 +23,4 @@ INSTALLED_APPS = (
     'django_webp',
 )
 
-MEDIA_ROOT = 'media'
-MEDIA_URL = 'media/'
+STATIC_URL = 'static/'
