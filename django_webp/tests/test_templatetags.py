@@ -52,6 +52,13 @@ class TemplateTagTest(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+    def test_supports_webp_false(self):
+        context = self._get_invalid_context()
+        result = webp(context, 'django_webp/python.png')
+        expected = static('django_webp/python.png')
+        self.assertEqual(result, expected)
+
+
     def test_templatetag(self):
         """ checks the returned url from the webp function """
         context = self._get_valid_context()

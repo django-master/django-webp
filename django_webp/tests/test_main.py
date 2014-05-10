@@ -2,6 +2,7 @@
 import unittest
 from PIL import Image
 
+from django.test.client import Client
 from django.contrib.staticfiles import finders
 
 
@@ -31,4 +32,11 @@ class MainTest(unittest.TestCase):
             image.load()
             self.assertTrue(True)
         except:
-            self.assertTrue(False, "There is no support for webp")
+            self.assertFail("There is no support for webp")
+
+
+    def test_index(self):
+        client = Client()
+        response = client.get('/')
+        
+        self.assertEqual(response.status_code, 200)
