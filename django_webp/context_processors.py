@@ -7,4 +7,4 @@ WEBP_VALID_BROWSERS = getattr(settings, 'WEBP_VALID_BROWSERS', ['Chrome', 'Opera
 def webp(request):
     """ Adds `supports_webp` value in the context """
 
-    return {'supports_webp': True}
+    return {'supports_webp': False}
