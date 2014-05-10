@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 ALLOWED_HOSTS = ['*']
-DEBUG = False
+DEBUG = True
+WEBP_DEBUG = False
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
