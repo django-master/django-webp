@@ -48,5 +48,4 @@ class MainTest(unittest.TestCase):
 
     def test_clean_webp_images_command(self):
         call_command('collectstatic', interactive=False, verbose=False)
-        with self.assertRaises(CommandError):
-            call_command('clean_webp_images')
+        self.assertRaises(CommandError, call_command, 'clean_webp_images')
