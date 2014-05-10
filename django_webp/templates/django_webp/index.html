@@ -1,0 +1,19 @@
+{% load staticfiles %}
+{% load webp %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Django Webp Test Page</title>
+</head>
+<body>
+    
+    <p>static url: {% static 'django_webp/python.png' %}</p>
+    <img src="{% static 'django_webp/python.png' %}" alt="Python" />
+
+    <p>webp url: {% webp 'django_webp/python.png' %}</p>
+    <img src="{% webp 'django_webp/python.png' %}" alt="Python" />
+
+</body>
+</html>

@@ -20,7 +20,9 @@ DATABASES = {
 
 
 INSTALLED_APPS = (
+    'django.contrib.staticfiles',
     'django_webp',
 )
 
+STATIC_ROOT = 'static'
 STATIC_URL = 'static/'

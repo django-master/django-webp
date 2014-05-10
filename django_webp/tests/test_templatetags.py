@@ -30,7 +30,6 @@ class TemplateTagTest(unittest.TestCase):
         file_exist = os.path.isfile(file_path)
         self.assertTrue(file_exist, msg)
 
-
     def _get_valid_context(self):
         return Context({'supports_webp': True})
 
@@ -55,6 +54,7 @@ class TemplateTagTest(unittest.TestCase):
         """ checks the returned url from the webp function """
         context = self._get_valid_context()
         result = webp(context, 'django_webp/python.png')
+        import ipdb; ipdb.set_trace()
         self.assertEqual(self.supported_url, result)
         self._assertFile(result, 'file should have been created')
 
