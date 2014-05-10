@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import unittest
 import os
+import shutil
 
 from django.template import Template, Context
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
 from django_webp.templatetags.webp import webp
-from django_webp.utils import WEBP_STATIC_URL
+from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT
 
 
 class TemplateTagTest(unittest.TestCase):
@@ -18,8 +19,11 @@ class TemplateTagTest(unittest.TestCase):
 
 
     def tearDown(self):
-        # clean the files here
-        pass
+        # cleaning the folder the files here
+        try:
+            shutil.rmtree(WEBP_STATIC_ROOT)
+        except:
+            pass
 
 
     def _assertFile(self, file_path, msg=''):
