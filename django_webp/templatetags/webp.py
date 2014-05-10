@@ -35,6 +35,7 @@ def _generate_path(image_path):
 
 def _generate_webp_image(image_path, image_url):
     generated_path = os.path.join(WEBP_STATIC_ROOT, image_url)
+    generated_path = os.path.splitext(generated_path)[0] + '.webp'
     real_path = WEBP_STATIC_URL + image_url
 
     if not os.path.isfile(generated_path):

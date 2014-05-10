@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ALLOWED_HOSTS = ['*']
-DEBUG = False
+DEBUG = True
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
@@ -24,5 +24,15 @@ INSTALLED_APPS = (
     'django_webp',
 )
 
-STATIC_ROOT = 'static'
-STATIC_URL = 'static/'
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+)
+
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.static",
+    "django_webp.context_processors.webp",
+)

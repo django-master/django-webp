@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 
 def index(request):
-    return render_to_response('django_webp/index.html')
+    return render(request, 'django_webp/index.html')
