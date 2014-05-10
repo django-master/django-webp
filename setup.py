@@ -4,7 +4,7 @@ from setuptools import find_packages
 
 setup(
     name='django-webp',
-    version='0.0.2',
+    version='1.0.0',
     author=u'Andre Farzat',
     author_email='andrefarzat@gmail.com',
     packages=find_packages(),
