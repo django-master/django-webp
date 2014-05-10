@@ -2,7 +2,6 @@
 import os
 import logging
 from PIL import Image
-from StringIO import StringIO
 
 from django import template
 from django.conf import settings
@@ -35,9 +34,9 @@ def _generate_path(image_path):
 
 
 def _generate_webp_image(image_path, image_url):
-    generated_path = os.path.join(WEBP_STATIC_ROOT, image_url)
-    generated_path = os.path.splitext(generated_path)[0] + '.webp'
-    real_path = WEBP_STATIC_URL + image_url
+    real_url = os.path.splitext(image_url)[0] + '.webp'
+    generated_path = os.path.join(WEBP_STATIC_ROOT, real_url)
+    real_url = WEBP_STATIC_URL + image_url
 
     if not os.path.isfile(generated_path):
         # generating the image
@@ -51,10 +50,10 @@ def _generate_webp_image(image_path, image_url):
             return _get_static_image(image_url)
         except (IOError, OSError):
             logger = logging.getLogger(__name__)
-            logger.warn('WEBP image could not be saved in %s' % real_path)
+            logger.warn('WEBP image could not be saved in %s' % real_url)
             return _get_static_image(image_url)
 
-    return real_path
+    return real_url
 
 
 def _get_generated_image(image_url):

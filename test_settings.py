@@ -30,7 +30,7 @@ STATICFILES_FINDERS = (
 )
 
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+STATIC_URL = 'staticfiles/'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
