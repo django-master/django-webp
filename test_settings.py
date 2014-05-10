@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ALLOWED_HOSTS = ['*']
-DEBUG = True
+DEBUG = False
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
