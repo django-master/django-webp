@@ -7,11 +7,14 @@ from PIL import Image
 from StringIO import StringIO
 
 from django.http import HttpResponse, Http404
+from django.conf import settings
 from django.contrib.staticfiles import finders
+
 
 logger = logging.getLogger(__name__)
 
-VALID_BROWSERS = ['Chrome', 'Opera', 'Opera Mobile']
+WEBP_VALID_BROWSERS = getattr(settings, 'WEBP_VALID_BROWSERS', ['Chrome', 'Opera', 'Opera Mobile'])
+
 
 def _return_static_image(image_path, content_type=None):
     if not content_type:
@@ -37,7 +40,7 @@ def _is_valid_browser(user_agent):
     if user_agent:
         data = httpagentparser.detect(user_agent)
         if 'browser' in data:
-            return data['browser']['name'] in VALID_BROWSERS
+            return data['browser']['name'] in WEBP_VALID_BROWSERS
 
     return False
 
