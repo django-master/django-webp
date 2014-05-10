@@ -4,7 +4,6 @@ import logging
 from PIL import Image
 
 from django import template
-from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
@@ -36,7 +35,7 @@ def _generate_path(image_path):
 def _generate_webp_image(image_path, image_url):
     real_url = os.path.splitext(image_url)[0] + '.webp'
     generated_path = os.path.join(WEBP_STATIC_ROOT, real_url)
-    real_url = WEBP_STATIC_URL + image_url
+    real_url = WEBP_STATIC_URL + real_url
 
     if not os.path.isfile(generated_path):
         # generating the image
@@ -69,9 +68,9 @@ def _get_generated_image(image_url):
 
 
 @register.simple_tag(takes_context=True)
-def webp(context, value):
+def webp(context, value, force_static=WEBP_DEBUG):
     supports_webp = context.get('supports_webp', False)
-    if not supports_webp or WEBP_DEBUG:
+    if not supports_webp or force_static:
         return _get_static_image(value)
     else:
         return _get_generated_image(value)

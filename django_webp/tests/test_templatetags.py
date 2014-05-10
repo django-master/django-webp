@@ -14,7 +14,7 @@ from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT
 class TemplateTagTest(unittest.TestCase):
 
     def setUp(self):
-        self.supported_url = WEBP_STATIC_URL + 'django_webp/python.png'
+        self.supported_url = WEBP_STATIC_URL + 'django_webp/python.webp'
         self.unsupported_url = static('django_webp/python.png')
         self.context = Context({})
 
@@ -29,6 +29,7 @@ class TemplateTagTest(unittest.TestCase):
 
     def _assertFile(self, file_path, msg=''):
         file_exist = os.path.isfile(file_path)
+        msg = msg or ('file doesnt exist: %s' % file_path)
         self.assertTrue(file_exist, msg)
 
     def _get_valid_context(self):
@@ -56,19 +57,18 @@ class TemplateTagTest(unittest.TestCase):
         context = self._get_valid_context()
         result = webp(context, 'django_webp/python.png')
         self.assertEqual(self.supported_url, result)
-        self._assertFile(result, 'file should have been created')
+        self._assertFile(result, 'file %s should have been created' % result)
 
 
     def test_templatetag_in_template(self):
         html = '{% load webp %}{% webp "django_webp/python.png" %}'
         rendered = self._render_template(html, context=self._get_valid_context())
         self.assertEqual(self.supported_url, rendered)
-        self._assertFile(rendered, 'file should have been created')
+        self._assertFile(rendered, 'file %s should have been created' % rendered)
 
 
-    @override_settings(DEBUG=True)
     def test_debug_true(self):
         """ if DEBUG = True, should always return the static url """
         context = self._get_valid_context()
-        result = webp(context, 'django_webp/python.png')
+        result = webp(context, 'django_webp/python.png', force_static=True)
         self.assertEqual(self.unsupported_url, result)
