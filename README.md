@@ -23,7 +23,7 @@ If the browser has support, generates:
 <img src="/static/WEBP_CACHE/path/to/your/image.webp" alt="image" />
 
 else, generates:
-<img src="/static/path/to/your/image.webp" alt="image" />
+<img src="/static/path/to/your/image.png" alt="image" />
 -->
 ```
 
