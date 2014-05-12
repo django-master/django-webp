@@ -55,5 +55,5 @@ and to `TEMPLATE_CONTEXT_PROCESSORS`  configuration
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django_webp.context_processors.webp",
-    "..."
+    "...",
 )
