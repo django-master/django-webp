@@ -57,3 +57,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django_webp.context_processors.webp",
     "...",
 )
+```
+
+## Cleaning the cache
+
+You can clean the cache running:
+```sh
+python manage.py clean_webp_images
+```
