@@ -23,7 +23,7 @@ If the browser has support, generates:
 <img src="/static/WEBP_CACHE/path/to/your/image.webp" alt="image" />
 
 else, generates:
-<img src="/static/path/to/your/image.webp" alt="image" />
+<img src="/static/path/to/your/image.png" alt="image" />
 -->
 ```
 
@@ -55,5 +55,13 @@ and to `TEMPLATE_CONTEXT_PROCESSORS`  configuration
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django_webp.context_processors.webp",
-    "..."
+    "...",
 )
+```
+
+## Cleaning the cache
+
+You can clean the cache running:
+```sh
+python manage.py clean_webp_images
+```
