@@ -30,11 +30,14 @@ else, generates:
 
 ## Installation
 
-First of all, you must install the webp support.
-Please, check [the official guide](https://developers.google.com/speed/webp/docs/precompiled).
+First of all, you must install the webp support. In ubuntu you can install via apt-get:
+```sh
+apt-get install libwebp-dev
+```
+Please, check [the official guide](https://developers.google.com/speed/webp/docs/precompiled) for the other systems.
+
 
 Then, install `django-webp`.
-
 ```sh
 pip install django-webp
 ```
@@ -58,6 +61,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "...",
 )
 ```
+
+
+## Possible problems
+
+`django-webp` uses `Pillow` to convert the images. If you've installed the `libwebp-dev` after already installed `Pillow`,
+it's necessary to uninstall and install it back because it needs to be compiled with it.
+
 
 ## Cleaning the cache
 
