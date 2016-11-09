@@ -32,7 +32,18 @@ STATICFILES_FINDERS = (
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = 'staticfiles/'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.static",
-    "django_webp.context_processors.webp",
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # insert your TEMPLATE_DIRS here
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.static',
+                'django_webp.context_processors.webp',
+            ],
+        },
+    },
+]

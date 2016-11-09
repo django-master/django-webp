@@ -52,14 +52,21 @@ INSTALLED_APPS = (
 )
 ```
 
-and to `TEMPLATE_CONTEXT_PROCESSORS`  configuration
+add the django_webp context processor
 
 ```python
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.static",
-    "django_webp.context_processors.webp",
-    "...",
-)
+TEMPLATES = [
+    {
+        '...'
+        'OPTIONS': {
+            'context_processors': [
+                '...',
+                'django_webp.context_processors.webp',
+            ],
+        },
+    },
+]
+
 ```
 
 
