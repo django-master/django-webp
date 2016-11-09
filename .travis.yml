@@ -1,7 +1,7 @@
 language: python
 python:
  - "2.7"
- - "3.3"
+ - "3.5"
 
 install:
  - sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms1-dev libwebp-dev
