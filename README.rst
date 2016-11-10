@@ -92,5 +92,5 @@ You can clean the cache running:
 
 .. |Build Status| image:: https://travis-ci.org/andrefarzat/django-webp.png?branch=master
    :target: https://travis-ci.org/andrefarzat/django-webp
-.. |Coverage Status| image:: https://coveralls.io/repos/andrefarzat/django-webp/badge.png
-   :target: https://coveralls.io/r/andrefarzat/django-webp
+.. |Coverage Status| image:: https://coveralls.io/repos/github/andrefarzat/django-webp/badge.svg?branch=master
+   :target: https://coveralls.io/github/andrefarzat/django-webp?branch=master

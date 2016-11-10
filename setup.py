@@ -7,7 +7,7 @@ with open('README.rst') as file:
 
 setup(
     name='django-webp',
-    version='1.0.9',
+    version='1.0.11',
     author=u'Andre Farzat',
     author_email='andrefarzat@gmail.com',
     packages=find_packages(),
