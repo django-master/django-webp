@@ -6,8 +6,6 @@ support.
 
 |Build Status| |Coverage Status|
 
-.. image:: https://coveralls.io/repos/github/andrefarzat/django-webp/badge.svg?branch=master
-   :target: https://coveralls.io/github/andrefarzat/django-webp?branch=master
 
 Usage
 -----
