@@ -4,7 +4,10 @@ django-webp
 Returns a webp image instead of jpg, gif or png to browsers which have
 support.
 
-|Build Status| |Coverage Status| |Requirements Status|
+|Build Status| |Coverage Status|
+
+.. image:: https://coveralls.io/repos/github/andrefarzat/django-webp/badge.svg?branch=master
+:target: https://coveralls.io/github/andrefarzat/django-webp?branch=master
 
 Usage
 -----
@@ -93,5 +96,3 @@ You can clean the cache running:
    :target: https://travis-ci.org/andrefarzat/django-webp
 .. |Coverage Status| image:: https://coveralls.io/repos/andrefarzat/django-webp/badge.png
    :target: https://coveralls.io/r/andrefarzat/django-webp
-.. |Requirements Status| image:: https://requires.io/github/andrefarzat/django-webp/requirements.png?branch=master
-   :target: https://requires.io/github/andrefarzat/django-webp/requirements/?branch=master
