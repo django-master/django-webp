@@ -42,10 +42,10 @@ class MainTest(unittest.TestCase):
     def test_index(self):
         client = Client()
         response = client.get('/')
-        
+
         self.assertEqual(response.status_code, 200)
 
 
     def test_clean_webp_images_command(self):
-        call_command('collectstatic', interactive=False, verbose=False)
+        call_command('collectstatic', '--noinput', '--clear')
         self.assertRaises(CommandError, call_command, 'clean_webp_images')
