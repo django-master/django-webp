@@ -5,7 +5,7 @@ import shutil
 
 from django.template import Template, Context
 from django.test.utils import override_settings
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 
 from django_webp.templatetags.webp import webp
 from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT
@@ -25,7 +25,6 @@ class TemplateTagTest(unittest.TestCase):
             shutil.rmtree(WEBP_STATIC_ROOT)
         except:
             pass
-
 
     def _assertFile(self, file_path, msg=''):
         file_exist = os.path.isfile(file_path)

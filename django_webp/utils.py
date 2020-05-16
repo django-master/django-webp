@@ -3,7 +3,7 @@ import os
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 
 
 STATIC_ROOT = getattr(settings, 'STATIC_ROOT', '') or ''
