@@ -45,7 +45,11 @@ class WEBPImageConverter:
         if os.path.isfile(generated_path):
             return True
 
-        image = Image.open(image_path)
+        try:
+            image = Image.open(image_path)
+        except FileNotFoundError:
+            return False
+
         try:
             self.generate_path(generated_path)
             image.save(generated_path, 'WEBP')
@@ -53,11 +57,11 @@ class WEBPImageConverter:
         except KeyError:
             logger = logging.getLogger(__name__)
             logger.warn('WEBP is not installed in pillow')
-            return False
         except (IOError, OSError):
             logger = logging.getLogger(__name__)
             logger.warn('WEBP image could not be saved in %s' % generated_path)
-            return False
+
+        return False
 
 
 @register.simple_tag(takes_context=True)
