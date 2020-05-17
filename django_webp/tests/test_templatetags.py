@@ -1,8 +1,10 @@
-# -*- coding: utf-8 -*-
 import unittest
 import os
 import shutil
 
+from django.conf import settings
+from django.core.files.images import ImageFile
+from django.core.files.storage import FileSystemStorage
 from django.template import Template, Context
 from django.test.utils import override_settings
 from django.templatetags.static import static
@@ -16,8 +18,6 @@ class TemplateTagTest(unittest.TestCase):
     def setUp(self):
         self.supported_url = WEBP_STATIC_URL + 'django_webp/python.webp'
         self.unsupported_url = static('django_webp/python.png')
-        self.context = Context({})
-
 
     def tearDown(self):
         # cleaning the folder the files here
@@ -27,8 +27,11 @@ class TemplateTagTest(unittest.TestCase):
             pass
 
     def _assertFile(self, file_path, msg=''):
-        file_exist = os.path.isfile(file_path)
-        msg = msg or ('file doesnt exist: %s' % file_path)
+        STATIC_ROOT = settings.STATIC_ROOT if settings.STATIC_ROOT.endswith('/') else settings.STATIC_ROOT + '/'
+        staticfile_path = file_path.replace(settings.STATIC_URL, settings.STATIC_ROOT)
+        file_exist = os.path.isfile(staticfile_path)
+
+        msg = msg or ('file doesnt exist: %s' % staticfile_path)
         self.assertTrue(file_exist, msg)
 
     def _get_valid_context(self):
