@@ -25,7 +25,7 @@ SECRET_KEY = 'p9tssl6+ve_5s6(d7^p=^i+_!x()547_v=3qyeg388zv+2rqxb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -63,6 +63,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_webp.context_processors.webp',
             ],
         },
     },
@@ -123,3 +124,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles/')
+
+WEBP_DEBUG = False
