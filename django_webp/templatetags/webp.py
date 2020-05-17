@@ -8,14 +8,10 @@ from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 
-from django_webp.utils import (WEBP_STATIC_URL, WEBP_STATIC_ROOT, WEBP_DEBUG, WEBP_CONVERT_MEDIA_FILES,
-                               WEBP_MEDIA_ROOT, WEBP_MEDIA_URL)
+from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT, WEBP_DEBUG, WEBP_CONVERT_MEDIA_FILES
+
 
 register = template.Library()
-
-
-def get_static_image(image_url):
-    return static(image_url)
 
 
 class WEBPImageConverter:
@@ -26,6 +22,8 @@ class WEBPImageConverter:
         if not os.path.isdir(folder_path):
             os.makedirs(folder_path)
 
+    def get_static_image(self, image_url):
+        return static(image_url)
 
     def get_generated_image(self, image_url):
         """ Returns the url to the webp gerenated image,
@@ -37,10 +35,10 @@ class WEBPImageConverter:
 
         image_path = finders.find(image_url)
         if not image_path:
-            return get_static_image(image_url)
+            return self.get_static_image(image_url)
 
         if not self.generate_webp_image(generated_path, image_path):
-            return get_static_image(image_url)
+            return self.get_static_image(image_url)
         return real_url
 
     def generate_webp_image(self, generated_path, image_path):
@@ -62,42 +60,12 @@ class WEBPImageConverter:
             return False
 
 
-class WEBPMediaImageConverter(WEBPImageConverter):
-    def get_generated_image(self, image_url):
-        image_path = image_url.replace(settings.MEDIA_URL, settings.MEDIA_ROOT)
-
-        if not os.path.isfile(image_path):
-            return image_url
-
-        real_url = os.path.splitext(image_url)[0] + '.webp'
-        generated_path = self.join_path(WEBP_MEDIA_ROOT, real_url)
-
-        if not self.generate_webp_image(generated_path, image_path):
-            return get_static_image(image_url)
-
-        return WEBP_MEDIA_URL + real_url
-
-    def join_path(self, *names):
-        result = []
-
-        for name in names:
-            if name.endswith(os.path.sep):
-                name = name[:-1]
-            if name.startswith(os.path.sep):
-                name = name[1:]
-            result.append(name)
-
-        return os.path.sep + os.path.join(*result)
-
-
 @register.simple_tag(takes_context=True)
 def webp(context, value, force_static=WEBP_DEBUG):
+    converter = WEBPImageConverter()
+
     supports_webp = context.get('supports_webp', False)
     if not supports_webp or force_static:
-        return get_static_image(value)
+        return converter.get_static_image(value)
 
-    is_mediafile = WEBP_CONVERT_MEDIA_FILES and value.startswith(settings.MEDIA_URL)
-    if is_mediafile:
-        return WEBPMediaImageConverter().get_generated_image(value)
-    else:
-        return WEBPImageConverter().get_generated_image(value)
+    return converter.get_generated_image(value)

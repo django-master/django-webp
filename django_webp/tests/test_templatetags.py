@@ -10,7 +10,7 @@ from django.test.utils import override_settings
 from django.templatetags.static import static
 
 from django_webp.templatetags.webp import webp
-from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT, WEBP_MEDIA_URL
+from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT
 
 
 class TemplateTagTest(unittest.TestCase):
@@ -74,31 +74,6 @@ class TemplateTagTest(unittest.TestCase):
         rendered = self._render_template(html, context=self._get_valid_context())
         self.assertEqual(self.supported_url, rendered)
         self._assertFile(rendered, 'file %s should have been created' % rendered)
-
-    def test_templatetag_with_media_url(self):
-        fs = FileSystemStorage()
-
-        for image_path in ['python.png', 'inside/folder/python3.png']:
-            image_url = fs.url(image_path)
-
-            context = self._get_valid_context()
-            result = webp(context, image_url)
-
-            media_url = WEBP_MEDIA_URL + settings.MEDIA_URL + image_path.replace('.png', '.webp')
-
-            self.assertEqual(media_url, result)
-            self._assertFile(result, 'file %s should have been created' % result)
-
-
-    def test_templatetag_in_template_with_media_url(self):
-        for image_path in ['python.png', 'inside/folder/python3.png']:
-            html = '{% load webp %}{% webp "/media/' + image_path + '" %}'
-            rendered = self._render_template(html, context=self._get_valid_context())
-
-            media_url = WEBP_MEDIA_URL + settings.MEDIA_URL + image_path.replace('.png', '.webp')
-
-            self.assertEqual(media_url, rendered)
-            self._assertFile(rendered, 'file %s should have been created' % rendered)
 
 
     def test_debug_true(self):
