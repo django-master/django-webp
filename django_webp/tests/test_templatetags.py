@@ -84,7 +84,7 @@ class TemplateTagTest(unittest.TestCase):
             context = self._get_valid_context()
             result = webp(context, image_url)
 
-            media_url = WEBP_MEDIA_URL[:-1] + settings.MEDIA_URL + image_path.replace('.png', '.webp')
+            media_url = WEBP_MEDIA_URL + settings.MEDIA_URL + image_path.replace('.png', '.webp')
 
             self.assertEqual(media_url, result)
             self._assertFile(result, 'file %s should have been created' % result)
@@ -95,7 +95,7 @@ class TemplateTagTest(unittest.TestCase):
             html = '{% load webp %}{% webp "/media/' + image_path + '" %}'
             rendered = self._render_template(html, context=self._get_valid_context())
 
-            media_url = WEBP_MEDIA_URL[:-1] + settings.MEDIA_URL + image_path.replace('.png', '.webp')
+            media_url = WEBP_MEDIA_URL + settings.MEDIA_URL + image_path.replace('.png', '.webp')
 
             self.assertEqual(media_url, rendered)
             self._assertFile(rendered, 'file %s should have been created' % rendered)

@@ -9,7 +9,7 @@ from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 
 from django_webp.utils import (WEBP_STATIC_URL, WEBP_STATIC_ROOT, WEBP_DEBUG, WEBP_CONVERT_MEDIA_FILES,
-                               WEBP_STATIC_ROOT, WEBP_MEDIA_ROOT, WEBP_MEDIA_URL)
+                               WEBP_MEDIA_ROOT, WEBP_MEDIA_URL)
 
 register = template.Library()
 
@@ -75,11 +75,7 @@ class WEBPMediaImageConverter(WEBPImageConverter):
         if not self.generate_webp_image(generated_path, image_path):
             return get_static_image(image_url)
 
-
-        if WEBP_MEDIA_URL.endswith('/'):
-            return WEBP_MEDIA_URL[:-1] + real_url
-        else:
-            return WEBP_MEDIA_URL + real_url
+        return WEBP_MEDIA_URL + real_url
 
     def join_path(self, *names):
         result = []
@@ -92,32 +88,6 @@ class WEBPMediaImageConverter(WEBPImageConverter):
             result.append(name)
 
         return os.path.sep + os.path.join(*result)
-
-
-def _join_path(*names):
-    result = []
-
-    for name in names:
-        if name.endswith(os.path.sep):
-            name = name[:-1]
-        if name.startswith(os.path.sep):
-            name = name[1:]
-        result.append(name)
-
-    return os.path.join(*result)
-
-
-def _join_url(*names):
-    result = []
-
-    for name in names:
-        if name.endswith('/'):
-            name = name[:-1]
-        if name.startswith('/'):
-            name = name[1:]
-        result.append(name)
-
-    return '/' + '/'.join(result)
 
 
 @register.simple_tag(takes_context=True)
