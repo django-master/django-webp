@@ -1,14 +1,16 @@
-# -*- coding: utf-8 -*-
 import unittest
 import os
 import shutil
 
+from django.conf import settings
+from django.core.files.images import ImageFile
+from django.core.files.storage import FileSystemStorage
 from django.template import Template, Context
 from django.test.utils import override_settings
 from django.templatetags.static import static
 
 from django_webp.templatetags.webp import webp
-from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT
+from django_webp.utils import WEBP_STATIC_URL, WEBP_STATIC_ROOT, WEBP_MEDIA_URL
 
 
 class TemplateTagTest(unittest.TestCase):
@@ -16,8 +18,6 @@ class TemplateTagTest(unittest.TestCase):
     def setUp(self):
         self.supported_url = WEBP_STATIC_URL + 'django_webp/python.webp'
         self.unsupported_url = static('django_webp/python.png')
-        self.context = Context({})
-
 
     def tearDown(self):
         # cleaning the folder the files here
@@ -27,8 +27,11 @@ class TemplateTagTest(unittest.TestCase):
             pass
 
     def _assertFile(self, file_path, msg=''):
-        file_exist = os.path.isfile(file_path)
-        msg = msg or ('file doesnt exist: %s' % file_path)
+        STATIC_ROOT = settings.STATIC_ROOT if settings.STATIC_ROOT.endswith('/') else settings.STATIC_ROOT + '/'
+        staticfile_path = file_path.replace(settings.STATIC_URL, settings.STATIC_ROOT)
+        file_exist = os.path.isfile(staticfile_path)
+
+        msg = msg or ('file doesnt exist: %s' % staticfile_path)
         self.assertTrue(file_exist, msg)
 
     def _get_valid_context(self):
@@ -71,6 +74,31 @@ class TemplateTagTest(unittest.TestCase):
         rendered = self._render_template(html, context=self._get_valid_context())
         self.assertEqual(self.supported_url, rendered)
         self._assertFile(rendered, 'file %s should have been created' % rendered)
+
+    def test_templatetag_with_media_url(self):
+        fs = FileSystemStorage()
+
+        for image_path in ['python.png', 'inside/folder/python3.png']:
+            image_url = fs.url(image_path)
+
+            context = self._get_valid_context()
+            result = webp(context, image_url)
+
+            media_url = WEBP_MEDIA_URL[:-1] + settings.MEDIA_URL + image_path.replace('.png', '.webp')
+
+            self.assertEqual(media_url, result)
+            self._assertFile(result, 'file %s should have been created' % result)
+
+
+    def test_templatetag_in_template_with_media_url(self):
+        for image_path in ['python.png', 'inside/folder/python3.png']:
+            html = '{% load webp %}{% webp "/media/' + image_path + '" %}'
+            rendered = self._render_template(html, context=self._get_valid_context())
+
+            media_url = WEBP_MEDIA_URL[:-1] + settings.MEDIA_URL + image_path.replace('.png', '.webp')
+
+            self.assertEqual(media_url, rendered)
+            self._assertFile(rendered, 'file %s should have been created' % rendered)
 
 
     def test_debug_true(self):

@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+old/
 
 # C extensions
 *.so
@@ -57,3 +58,4 @@ docs/_build/
 WEBP_CACHE/
 media/
 staticfiles/
+db.sqlite3
