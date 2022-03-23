@@ -93,6 +93,7 @@
                 "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"
             ],
             "markers": "python_version >= '3.5'",
+            "index": "pypi",
             "version": "==0.4.2"
         }
     },
