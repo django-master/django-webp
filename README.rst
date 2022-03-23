@@ -90,7 +90,7 @@ You can clean the cache running:
 
 .. _the official guide: https://developers.google.com/speed/webp/docs/precompiled
 
-.. |Build Status| image:: https://travis-ci.org/andrefarzat/django-webp.png?branch=master
-   :target: https://travis-ci.org/andrefarzat/django-webp
+.. |Build Status| image:: https://github.com/andrefarzat/django-webp/actions/workflows/django.yml/badge.svg?branch=master
+   :target: https://github.com/andrefarzat/django-webp/actions/workflows/django.yml
 .. |Coverage Status| image:: https://coveralls.io/repos/github/andrefarzat/django-webp/badge.svg?branch=master
    :target: https://coveralls.io/github/andrefarzat/django-webp?branch=master
