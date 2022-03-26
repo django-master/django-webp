@@ -21,12 +21,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
+    - name: Install SO Dependencies
       run: |
         sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install coveralls
+    - name: Install django dependencies
+      run: pip install -r requirements.txt
+    - name: Install coveralls
+      run: pip install coveralls
     - name: Run Tests
       run: |
         coverage run --source=django_webp manage.py test
