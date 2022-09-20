@@ -8,7 +8,7 @@ from django.templatetags.static import static
 STATIC_ROOT = getattr(settings, 'STATIC_ROOT', '') or ''
 
 WEBP_STATIC_ROOT = getattr(settings, 'WEBP_STATIC_ROOT', 'WEBP_CACHE')
-WEBP_STATIC_ROOT = STATIC_ROOT + WEBP_STATIC_ROOT
+WEBP_STATIC_ROOT = os.path.join(STATIC_ROOT, WEBP_STATIC_ROOT)
 
 WEBP_STATIC_URL = static(getattr(settings, 'WEBP_STATIC_URL', 'WEBP_CACHE/'))
 
