@@ -52,6 +52,14 @@ class WEBPImageConverter:
         # Looks for image if hosted locally/checks if link provided is still valid
         if "https://" in image_url:
             pass
+            # try:
+            #     response = requests.head(image_url)
+            #     if response.status_code == requests.codes.ok:
+            #         content_type = response.headers.get('Content-Type', '')
+            #         if content_type.startswith('image/'):
+            #             print(f"fourth: paseed the tests with {image_url}")
+            # except requests.RequestException:
+            #     return self.get_static_image(image_url)
         else:
             image_path = finders.find(image_url)
             if not image_path:
