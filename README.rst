@@ -30,8 +30,8 @@ templatetag to point to the image you want to convert.
 Installation
 ------------
 
-First of all, you must install the webp support. In ubuntu you can
-install via apt-get:
+First of all, if you are using a version of Pillow <= 9.3.0, you must install the webp support since arlier versions of Pillow do not 
+have webp support built-in. In ubuntu you can install via apt-get:
 
 .. code:: sh
 
