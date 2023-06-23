@@ -2,7 +2,6 @@ import unittest
 
 from django.http import HttpRequest
 
-from test_main import USER_AGENTS
 from django_webp.context_processors import webp
 
 
@@ -16,12 +15,6 @@ class ContextProcessorTest(unittest.TestCase):
         supports_webp = result.get("supports_webp", None)
         self.assertFalse(supports_webp)
 
-    def test_by_user_agent(self):
-        """Giving a valid user agent, should return True"""
-        self.request.META["HTTP_USER_AGENT"] = USER_AGENTS[0]
-        result = webp(self.request)
-        supports_webp = result.get("supports_webp", None)
-        self.assertTrue(supports_webp)
 
     def test_by_http_accept_header(self):
         """

@@ -28,7 +28,7 @@ class TemplateTagTest(unittest.TestCase):
 
     def _assertFile(self, file_path, msg=''):
         STATIC_ROOT = settings.STATIC_ROOT if settings.STATIC_ROOT.endswith('/') else settings.STATIC_ROOT + '/'
-        staticfile_path = file_path.replace(settings.STATIC_URL, settings.STATIC_ROOT)
+        staticfile_path = file_path.replace(settings.STATIC_URL, STATIC_ROOT)
         file_exist = os.path.isfile(staticfile_path)
 
         msg = msg or ('file doesnt exist: %s' % staticfile_path)

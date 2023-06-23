@@ -4,10 +4,8 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.templatetags.static import static
 
-if "whitenoise.middleware.WhiteNoiseMiddleware" in settings.MIDDLEWARE:
-    USING_WHITENOISE = True
-else:
-    USING_WHITENOISE = False
+
+USING_WHITENOISE = "whitenoise.middleware.WhiteNoiseMiddleware" in settings.MIDDLEWARE
 
 STATIC_ROOT = getattr(settings, "STATIC_ROOT", "") or ""
 

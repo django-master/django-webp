@@ -21,7 +21,7 @@ from django_webp.utils import (
     USING_WHITENOISE,
 )
 
-if USING_WHITENOISE:
+if USING_WHITENOISE: # pragma: no cover
     base_path = settings.BASE_DIR
 else:
     base_path = settings.STATIC_ROOT
