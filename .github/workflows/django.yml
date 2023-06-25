@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, dev ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, dev ]
 
 jobs:
   build:
@@ -39,4 +39,3 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         file: ./tests/coverage.lcov
-        base-path: ../src
