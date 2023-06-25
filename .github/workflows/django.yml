@@ -39,4 +39,3 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         file: ./tests/coverage.lcov
-        base-path: ../src
