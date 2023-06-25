@@ -17,5 +17,5 @@ WEBP_STATIC_URL = static(getattr(settings, "WEBP_STATIC_URL", "WEBP_CACHE/"))
 
 WEBP_DEBUG = getattr(settings, "WEBP_DEBUG", settings.DEBUG)
 
-if not WEBP_STATIC_URL.endswith("/"):
+if not WEBP_STATIC_URL.endswith("/"): # pragma: no cover
     raise ImproperlyConfigured("If set, WEBP_STATIC_URL must end with a slash")

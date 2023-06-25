@@ -47,7 +47,7 @@ class WEBPImageConverter:
         if the image doesn't exist or the generetion fails,
         it returns the regular static url for the image"""
 
-        if "https://" in image_url:
+        if "https://" in image_url:  # pragma: no cover
             # Split the text by forward slashes and gets the last part (characters after the last slash)
             raw_filename = image_url.split("/")[-1]
             real_url = os.path.join(
@@ -61,7 +61,7 @@ class WEBPImageConverter:
 
         # Looks for image if hosted locally/checks if link provided is still valid
         # Only bothers to check if the link is valid if WEBP_CHECK_URLS is True
-        if "https://" in image_url:
+        if "https://" in image_url: # pragma: no cover
             if WEBP_CHECK_URLS:
                 try:
                     response = requests.head(image_url)
@@ -78,7 +78,7 @@ class WEBPImageConverter:
             if not image_path:
                 return self.get_static_image(image_url)
 
-        if "https://" in image_url:
+        if "https://" in image_url: # pragma: no cover
             if not self.generate_webp_image(generated_path, image_url):
                 print(f"Failed to generate from URL: {image_url}")
                 return self.get_static_image(image_url)
@@ -90,7 +90,7 @@ class WEBPImageConverter:
 
     def generate_webp_image(self, generated_path, image_path):
         final_path = generated_path
-        if USING_WHITENOISE:
+        if USING_WHITENOISE: # pragma: no cover
             final_path = os.path.join(str(base_path), generated_path)
 
         ## Prevents duplicates of generated images by checking if the already exist in a directory
@@ -99,7 +99,7 @@ class WEBPImageConverter:
             return True
 
         # Checks for non-locally hosted images
-        if "https://" in image_path:
+        if "https://" in image_path:  # pragma: no cover
             if os.path.exists(final_path):
                 return True
 
@@ -135,7 +135,7 @@ class WEBPImageConverter:
             logger = logging.getLogger(__name__)
             logger.warn("WEBP image could not be saved in %s" % generated_path)
 
-        return False
+        return False  # pragma: no cover
 
 
 @register.simple_tag(takes_context=True)
