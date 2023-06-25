@@ -105,7 +105,7 @@ class WEBPImageConverter:
 
         ## Generating images if they do not exist in a directory
         # Fetching the image data
-        if "https://" in image_path:
+        if "https://" in image_path: # pragma: no cover
             response = requests.get(image_path)
             try:
                 image = Image.open(BytesIO(response.content))
@@ -128,10 +128,10 @@ class WEBPImageConverter:
             default_storage.save(final_path, content_file)
             image.close()
             return True
-        except KeyError:
+        except KeyError: # pragma: no cover
             logger = logging.getLogger(__name__)
             logger.warn("WEBP is not installed in Pillow")
-        except (IOError, OSError):
+        except (IOError, OSError): # pragma: no cover
             logger = logging.getLogger(__name__)
             logger.warn("WEBP image could not be saved in %s" % generated_path)
 

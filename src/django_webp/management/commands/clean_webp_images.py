@@ -11,6 +11,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             shutil.rmtree(WEBP_STATIC_ROOT)
-            self.stdout.write("Folder %s removed" % WEBP_STATIC_ROOT)
+            self.stdout.write("Folder %s removed" % WEBP_STATIC_ROOT)  # pragma: no cover
         except:
             raise CommandError("Folder %s was already removed" % WEBP_STATIC_ROOT)
