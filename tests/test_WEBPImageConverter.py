@@ -14,3 +14,8 @@ class WEBPImageConverterTestCase(TestCase):
 
         converter = WEBPImageConverter()
         self.assertFalse(converter.generate_webp_image(generated_path, image_path))
+
+    def test_get_static_image(self):
+        converter = WEBPImageConverter()
+        self.assertEqual(converter.get_static_image("https://example.com/image.png"), "https://example.com/image.png")
+        self.assertEqual(converter.get_static_image("image.png"), "/static/image.png")
