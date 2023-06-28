@@ -30,7 +30,7 @@ templatetag to point to the image you want to convert.
 Installation
 ------------
 
-First of all, if you are using a version of Pillow <= 9.3.0, you must install  webp support since earlier versions of Pillow do not 
+First, if you are using a version of Pillow <= 9.3.0, you must install  webp support since earlier versions of Pillow do not 
 have webp support built-in. In ubuntu, you can install via apt-get:
 
 .. code:: sh
@@ -70,6 +70,22 @@ add the django\_webp context processor
             },
         },
     ]
+
+Settings
+--------
+
+The following Django-level settings affect the behavior of the library
+
+- ``WEBP_CHECK_URLS``
+
+  When set to ``True``, urls that link to externally stored images (i.e. images hosted by another site) are checked to confirm if they are valid image links.
+  Ideally, this should temporarily be set to ``True`` whenever the ``WEBP_CACHE`` has been cleaned or if there has been substantial changes to your project's template files.
+  This defaults to ``False``.
+
+- ``USING_WHITENOISE``
+
+  Set to ``True`` when whitenoise is used as middleware, defaults to ``False`` if not. Used to determine the directory to store the ``WEBP_CACHE``.
+
 
 Possible problems
 -----------------
