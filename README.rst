@@ -1,8 +1,7 @@
 django-webp
 ===========
 
-Returns a webp image instead of jpg, gif or png to browsers which have
-support.
+Speeds up static file load times by generating a webp image to load to a webpage instead of a jpg, gif or png
 
 |Build Status| |Coverage Status|
 
