@@ -11,21 +11,26 @@ from django.core.files.base import ContentFile
 from django.contrib.staticfiles import finders
 from django.core.files.storage import default_storage
 from django.templatetags.static import static
+from django.core.exceptions import SuspiciousFileOperation
 
 from django.conf import settings
-from testapp.utils import (
-    WEBP_STATIC_URL,
+from utils import (
     WEBP_STATIC_ROOT,
     WEBP_DEBUG,
     WEBP_CHECK_URLS,
     USING_WHITENOISE,
 )
 
-
-if USING_WHITENOISE: # pragma: no cover
-    base_path = settings.BASE_DIR
-else:
+# if STATIC_ROOT is abs, then we are likely woring in production, if not, likely a testing env
+if os.path.isabs(settings.STATIC_ROOT):
     base_path = settings.STATIC_ROOT
+    static_dir_prefix = os.path.relpath(settings.STATIC_ROOT, start=settings.BASE_DIR)
+else:
+    base_path = os.path.join(settings.BASE_DIR, settings.STATIC_ROOT)
+    static_dir_prefix = settings.STATIC_ROOT
+
+# getting rid of trailing slash
+static_dir_prefix = static_dir_prefix.rstrip("/")
 
 register = template.Library()
 
@@ -50,18 +55,16 @@ class WEBPImageConverter:
         """
 
         # Checking if original image exists
-        if not os.path.exists(os.path.join(base_path, str(settings.STATIC_ROOT), image_path)):
+        if not os.path.exists(os.path.join(base_path, image_path)) and not "https" in image_path:
             logger = logging.getLogger(__name__)
-            logger.warn(f"Original image does not exist in static files path: {image_path}")
+            logger.warn(f"Original image does not exist in static files path: {os.path.join(base_path, image_path)}")
             return False
         
+        # if USING_WHITENOISE: # pragma: no cover
+            # final_path = os.path.join(str(base_path), generated_path)
         
-        final_path = generated_path
-        if USING_WHITENOISE: # pragma: no cover
-            final_path = os.path.join(str(base_path), generated_path)
-        
-        # Checks for locally hosted images
-        if os.path.exists(final_path):
+        # Checks if the webp version of the image exists
+        if os.path.exists(generated_path):
             return False
         else:
             return True
@@ -84,7 +87,7 @@ class WEBPImageConverter:
             real_url = os.path.splitext(image_url)[0] + ".webp"
 
         generated_path = os.path.join(WEBP_STATIC_ROOT, real_url).lstrip("/")
-
+        
         # Checks if link provided is still valid
         # Only bothers to check if the link is valid if WEBP_CHECK_URLS is True
         if "https://" in image_url: # pragma: no cover
@@ -93,13 +96,13 @@ class WEBPImageConverter:
                     response = requests.head(image_url)
                     if response.status_code == requests.codes.ok:
                         content_type = response.headers.get("Content-Type", "")
-                        if content_type.startswith("image/"):
-                            print(f"fourth: paseed the tests with {image_url}")
+                        if not content_type.startswith("image/"):
+                            logger = logging.getLogger(__name__)
+                            logger.warn(f"The following image url is invalid: {image_url}")
                 except requests.RequestException:
                     return self.get_static_image(image_url)
         
         should_generate = self.check_image_dirs(generated_path, image_url)
-        print(should_generate)
         
         if should_generate is True:
             if "https://" in image_url: # pragma: no cover
@@ -109,12 +112,17 @@ class WEBPImageConverter:
                     return self.get_static_image(image_url)
             else:
                 # Constructing full image path for original image
-                image_path = os.path.join(base_path, str(settings.STATIC_ROOT), image_url)
+                image_path = os.path.join(base_path, image_url)
                 if not self.generate_webp_image(generated_path, image_path):
                     return self.get_static_image(image_url)
         
+        ## converting generated_path from an absolute path to a relative path
+        index = generated_path.find(static_dir_prefix)
+        # Extract the substring starting from "static" and replacing any weird backslashes with forward slashes
+        generated_path = (generated_path[index + len("static"):]).replace("\\", "/")
         print(generated_path)
-        return generated_path
+        # using static to set the proper URL of the image when it's being requested
+        return static(generated_path)
 
     def generate_webp_image(self, generated_path, image_path):
         final_path = os.path.join(str(base_path), generated_path)
@@ -150,6 +158,9 @@ class WEBPImageConverter:
         except (IOError, OSError): # pragma: no cover
             logger = logging.getLogger(__name__)
             logger.warn("WEBP image could not be saved in %s" % generated_path)
+        except SuspiciousFileOperation:
+            logger = logging.getLogger(__name__)
+            logger.warn("SuspiciousFileOperation: the generated image was created outside of the base project path %s" % generated_path)
 
         return False  # pragma: no cover
 
