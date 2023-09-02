@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-webp"
-version = "2.1.0"
-description = "Returns a webp image instead of jpg, gif or png to browsers"
+version = "3.0.0"
+description = "Serves a webp version of static images to browsers instead of jpg, gif or png"
 readme = "README.rst"
 requires-python = ">=3.5"
 keywords = ["django", "webp", "python"]
@@ -34,6 +34,7 @@ dependencies = [
   "django>=4.0.3",
   "pillow>=9.0.1",
   "sqlparse>=0.4.2",
+  "whitenoise>=6.5.0"
 ]
 
 [project.optional-dependencies]
