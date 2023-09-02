@@ -53,6 +53,16 @@ add it to ``INSTALLED_APPS`` configuration
         'django_webp',
         '...',
     )
+    
+edit your installation of Whitenoise to use our slightly modded version of it
+
+.. code:: python
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django_webp.middleware.ModdedWhiteNoiseMiddleware',
+        '...',
+    ]
 
 add the django\_webp context processor
 
@@ -81,15 +91,15 @@ The following Django-level settings affect the behavior of the library
   Ideally, this should temporarily be set to ``True`` whenever the ``WEBP_CACHE`` has been cleaned or if there has been substantial changes to your project's template files.
   This defaults to ``False``.
 
-- ``USING_WHITENOISE``
 
-  Set to ``True`` when whitenoise is used as middleware, defaults to ``False`` if not. Used to determine the directory to store the ``WEBP_CACHE``.
+  
 
 
-Possible problems
+Possible Issues
 -----------------
 
 - ``django-webp`` uses ``Pillow`` to convert the images. If you’ve installed the ``libwebp-dev`` after already installed ``Pillow``, it’s necessary to uninstall and install it back because it needs to be compiled with it.
+- This package was built specifically for production environments that use Whitenoise for serving static files so there currently isn't support for serving files via dedicated servers or through cloud services
 
 Cleaning the cache
 ------------------

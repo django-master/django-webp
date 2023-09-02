@@ -21,7 +21,6 @@ from utils import (
     WEBP_STATIC_ROOT,
     WEBP_DEBUG,
     WEBP_CHECK_URLS,
-    USING_WHITENOISE
 )
 
 # if STATIC_ROOT is abs, then we are likely woring in production, if not, likely a testing env
