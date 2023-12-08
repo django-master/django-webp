@@ -17,11 +17,10 @@ from whitenoise.middleware import WhiteNoiseMiddleware
 from whitenoise.string_utils import ensure_leading_trailing_slash
 
 from django.conf import settings
-from utils import (
+from ..utils import (
     WEBP_STATIC_ROOT,
     WEBP_DEBUG,
     WEBP_CHECK_URLS,
-    USING_WHITENOISE
 )
 
 # if STATIC_ROOT is abs, then we are likely woring in production, if not, likely a testing env
